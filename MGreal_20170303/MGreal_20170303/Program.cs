@@ -12,6 +12,7 @@ namespace MGreal_20170303
         {
             Console.WriteLine("hello world");
             Console.WriteLine("hello world2");
+            Console.WriteLine(123);
         }
     }
 }
