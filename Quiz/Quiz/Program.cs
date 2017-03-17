@@ -8,6 +8,7 @@ namespace Quiz
 {
 	class Program
 	{
+
 		public static float Discount20Percent(int price)
 		{
 			if (price <= 0)
@@ -44,10 +45,10 @@ namespace Quiz
 		public static int MultipleThreeOrFive()
 		{
 			int sum = 0;
-			for (int i = 0; i < 10000; i++)
+			for (int i = 1; i < 10000; i++)
 			{
 				if (i % 3 == 0 || i % 5 == 0)
-					sum += i;
+					sum += i; // sum = sum + i;
 			}
 
 			return sum;
@@ -292,7 +293,7 @@ namespace Quiz
 			string temp = "1";
 			for(int i = 2; i <= n; i++)
 				temp += Convert.ToString(i);
-
+			
 			for(int i = 0; i < temp.Length; i++)
 			{
 				if (temp[i] == '0')
@@ -320,6 +321,50 @@ namespace Quiz
 			return numberCount;
 		}
 
+		public static bool Palindrome(char[] str)
+		{
+			// char 배열의 가장 바깥쪽부터 가장 안쪽인 절반까지 검사
+			for(int i = 0; i < str.Length/2; i++)
+			{
+				// 비교하는 문자들이 같으면 다음 검사
+				if (str[i] == str[str.Length - i - 1])
+					continue;
+				// 비교하는 문자들이 다르면
+				else
+				{
+					// 비교하는 문자들이 알파벳일 경우 대소문자 구별 안함
+					// 이를 위해 대문자나 소문자 통일, 여기서는 대문자로 통일
+					
+					// char 배열의 값을 바꾸는 경우
+					//if (char.IsLower(str[i]))
+					//	char.ToUpper(str[i]);
+					//if (char.IsLower(str[str.Length - i - 1]))
+					//	char.ToUpper(str[str.Length - i - 1]);
+					
+					// char 배열의 값을 바꾸지 않는 경우
+					if (char.IsLower(str[i]))
+					{
+						// 소문자를 대문자와 비교하기 위해 차이나는만큼 더함
+						// 이는 알파벳이 특정한 정수값에 대응되기에 가능
+						if ((str[i] + 'a' - 'A') - str[str.Length - i - 1] == 0)
+							continue;
+					}
+					if (char.IsLower(str[str.Length - i - 1]))
+					{
+						if ((str[i] + 'a' - 'A') - str[str.Length - i - 1] == 0)
+							continue;
+					}
+					// 비교하는 문자들이 같으면 다음 검사
+					if (str[i] - str[str.Length - i - 1] == 0)
+						continue;
+
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		static void Main(string[] args)
 		{
 			int[] score = new int[20]
@@ -330,11 +375,13 @@ namespace Quiz
 			int[] tempSugar = new int[2];
 			int[] numberCount = new int[10];
 
+
 			//Console.WriteLine(Discount20Percent(16900));
-			//Console.WriteLine(MultipleThreeOrFive());
+			//Console.WriteLine(Median(3, 13, 10));
+			//Console.WriteLine(MultipleThreeOrFive()); // 3번
 			//Console.WriteLine(LessThanAverageRatio(score));
 			//Console.WriteLine(CheatingAverageByMaxScore(arr));
-			//Console.WriteLine(WordCounter(str.ToCharArray()));
+			//Console.WriteLine(WordCounter(str.ToCharArray())); // 6번
 			/*
 			Console.WriteLine(Grade(71));
 			Console.WriteLine(Grade(30));
@@ -345,10 +392,10 @@ namespace Quiz
 			Console.WriteLine(DayName(3, 1));
 			Console.WriteLine(DayName(6, 19));
 			 */
-			//PrintTenIntegerInOneRow(score);
+			//PrintTenIntegerInOneRow(score); // 9번
 			//GuGuDan(3);
 			//QuotientToBrothersRemainderToFather(99, 8);
-			//Console.WriteLine(NeverLessThanFourtyAverage(score2));
+			//Console.WriteLine(NeverLessThanFourtyAverage(score2)); // 12번
 
 			/*	
 			for (int i = 0; i != -1;)
@@ -365,6 +412,20 @@ namespace Quiz
 			foreach (int a in numberCount)
 				Console.WriteLine(a);
 			*/
+
+			//15번
+			/*
+			string temp1 = "12k3& &32K1";
+			string temp2 = "Ara";
+			string temp3 = " \"\" ";
+			string temp4 = "Not No t";
+			Console.WriteLine(Palindrome(temp1.ToCharArray()));
+			Console.WriteLine(Palindrome(temp2.ToCharArray()));
+			Console.WriteLine(Palindrome(temp3.ToCharArray()));
+			Console.WriteLine(Palindrome(temp4.ToCharArray()));
+			*/
+
+
 		}
 	}
 }
