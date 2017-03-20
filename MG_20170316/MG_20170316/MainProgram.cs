@@ -59,6 +59,8 @@ namespace MG_20170316
 			//Console.WriteLine(tmp3.Pop().val); // 4
 			//Console.WriteLine(tmp3.Pop().val); // 3
 			//Console.WriteLine(tmp3.Pop().val); // 2
+
+			
 		}
 	}
 }
