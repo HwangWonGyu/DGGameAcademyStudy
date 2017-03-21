@@ -6,28 +6,28 @@ using System.Threading.Tasks;
 
 namespace MG_20170320
 {
-	class BinaryTree
+	class BinaryTreeNode
 	{
 		public int val;
-		public BinaryTree leftchild;
-		public BinaryTree rightchild;
+		public BinaryTreeNode leftchild;
+		public BinaryTreeNode rightchild;
+	}
+
+	class BinaryTree
+	{
+		public BinaryTreeNode root;
 
 		public BinaryTree()
 		{
-			leftchild = null;
-			rightchild = null;
+			root = null;
 		}
 
-		// 정말 필요한 생성자 인가?
-		public BinaryTree(int _val)
+		public void SetRoot(BinaryTreeNode temp)
 		{
-			val = _val;
-			leftchild = null;
-			rightchild = null;
-			//Console.Write("{0} ",_val);
+			root = temp;
 		}
 
-		public void PreOrder(BinaryTree root)
+		public void PreOrder(BinaryTreeNode root)
 		{
 			// root 먼저 들렀다가
 			Console.WriteLine(root.val);
@@ -37,10 +37,9 @@ namespace MG_20170320
 			// right 순
 			if (root.rightchild != null)
 				PreOrder(root.rightchild);
-
 		}
 
-		public void InOrder(BinaryTree root)
+		public void InOrder(BinaryTreeNode root)
 		{
 			// left 먼저 들렀다가
 			if (root.leftchild != null)
@@ -52,7 +51,7 @@ namespace MG_20170320
 				InOrder(root.rightchild);
 		}
 
-		public void PostOrder(BinaryTree root)
+		public void PostOrder(BinaryTreeNode root)
 		{
 			// left 먼저 들렀다가
 			if (root.leftchild != null)
@@ -65,6 +64,7 @@ namespace MG_20170320
 		}
 	}
 
+	// 클래스 추가하거나 구조를 바꿔야 할 수도 있음
 	class Calculator
 	{
 		public string key;
@@ -137,6 +137,85 @@ namespace MG_20170320
 				root.key = Convert.ToString(temp);
 				//Console.WriteLine("=" + root.key);
 			}
+		}
+	}
+
+	class Heap
+	{
+		public HeapNode root;
+		public HeapNode dummy;
+
+		public Heap()
+		{
+			root = null;
+			dummy = null;
+		}
+
+		// Index없이 패턴으로 하는 방법
+		public void Insert(int _key)
+		{
+			HeapNode hn = new HeapNode();
+			hn.key = _key;
+
+			// Root조차 없는 경우
+			if (root == null)
+				root = hn;
+			else
+			{
+				// Root만 있는 경우, 마지막 Insert 위치를 dummy가 가리키게 함
+				if (root.leftchild == null && dummy == null)
+				{
+					root.leftchild = hn;
+					root.leftchild.parent = root;
+					dummy = root.leftchild;
+				}
+				// dummy가 무언가를 가리키고 있을 때 (이는 Root 이외의 노드가 있다는 말)
+				else if(dummy != null)
+				{
+					HeapNode i;
+					for (i = dummy; i == i.parent.rightchild; i = i.parent);
+
+					i = i.parent;
+					if (i.rightchild != null)
+					// rightchild가 이미 있다면 이를 기준으로 가장 왼쪽에 넣어야 함
+					{
+						i = i.rightchild;
+
+						for (; i.leftchild != null; i = i.leftchild) ;
+
+						i.leftchild = hn;
+						hn.parent = i.leftchild;
+						dummy = i.leftchild;
+					}
+					else
+					// rightchild가 비어있다면 그 자리에 새 Node를 넣어주고 걔를 dummy가 가리키게 함
+					{
+						i.rightchild = hn;
+						hn.parent = i;
+						dummy = i.rightchild;
+					}
+				}
+			}
+		}
+
+		public void Delete()
+		{
+
+		}
+	}
+
+	class HeapNode
+	{
+		public int key;
+		public HeapNode parent;
+		public HeapNode leftchild;
+		public HeapNode rightchild;
+
+		public HeapNode()
+		{
+			parent = null;
+			leftchild = null;
+			rightchild = null;
 		}
 	}
 }
