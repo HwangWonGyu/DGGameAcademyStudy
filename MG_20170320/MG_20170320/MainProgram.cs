@@ -59,15 +59,20 @@ namespace MG_20170320
 
 
 
-			// Heap, Node 생성
+			// Heap 생성
 			Heap heap = new Heap();
-			
 
-			// Node 간의 관계 설정
-			
+			for (int i = 0; i < 10; i++)
+				heap.Insert(i);
 
-			// Insert는 각 Node들을 저장해둔 배열의 Index를 이용?
-			// Insert할 위치의 (Index - 1) / 2 하면 부모 Index 나옴
+			for (int i = 0; i < 2; i++)
+				heap.Delete();
+
+			heap.PreOrder(heap.GetRoot());
+			//heap.InOrder(heap.GetRoot());
+			//heap.PostOrder(heap.GetRoot());
+
+
 		}
 	}
 }
