@@ -79,6 +79,7 @@ namespace MG_20170327
 
 		public void Delete(int n)
 		{
+			BinarySearchTreeNode delete;
 			BinarySearchTreeNode deleteParent;
 			BinarySearchTreeNode maxChildParent;
 
